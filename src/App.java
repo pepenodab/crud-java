@@ -2,51 +2,41 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        
+
         Scanner scanner = new Scanner(System.in);
-        final Crud[] OBJECTLIST = new Crud[10];
+        Crud[] OBJECTLIST = new Crud[10];
+        for (int i = 0; i < OBJECTLIST.length; i++) {
+            Crud Sex = new Crud("mate", null, false);
+            OBJECTLIST[i]= Sex;
+        }
         int counter = 0;
         String userOption = "xD";
         while (userOption != ":)") {
-            System.out.println("           MENU           ");
-            System.out.println(" Occupation of the array " + counter + "/10");
-            System.out.println("1.- Creation of an object");
-            System.out.println("2.- Read attributs from an object");
-            System.out.println("3.- Update date of an object");
-            System.out.println("4.- Delete an object");
-            System.out.println("5.- Exit");
+            Utils.menu(counter);
             userOption = scanner.nextLine();
             switch (userOption) {
                 case "1":
-                    Crud object = new Crud();
-                    object.create();
-                    counter++;
-                    for (int i = 0; i < OBJECTLIST.length; i++) {
-                        if(OBJECTLIST[i] == null){
-                            OBJECTLIST[i]= object;
-                            System.out.println("The object " + object.getName() + " got index : " + i );
-                            break;
-                        }
+                    if (counter >= 10) {
+                        System.out.println( "My masculity look fragile, so you cant create a new object");
+                    } else {
+                        OBJECTLIST = Utils.add(OBJECTLIST);
+                        counter++;
                     }
                     break;
                 case "2":
-                    System.out.println("Insert index of the object you want to read");
-                    int index = scanner.nextInt();
-                    scanner.nextLine();
-                    OBJECTLIST[index].read();
+                    Utils.peruse(OBJECTLIST);
                     break;
                 case "3":
-                    System.out.println("Insert index of the object you want to modify ");
-                    index = scanner.nextInt();
-                    scanner.nextLine();
-                    OBJECTLIST[index].update();
+                    OBJECTLIST = Utils.change(OBJECTLIST);
                     break;
                 case "4":
-                    System.out.println("Insert index of the object you want to modify ");
-                    index = scanner.nextInt();
+                    System.out.println("Insert index of the object you want to delete ");
+                    int index = scanner.nextInt();
                     scanner.nextLine();
-                    OBJECTLIST[index].delete();
-                    counter--;
+                    if (OBJECTLIST[index] == null) {
+                        counter--;
+                    }
+                    OBJECTLIST = Utils.remove(OBJECTLIST,index);
                     break;
                 case "5":
                     System.out.println("Goodbye :)");
@@ -57,7 +47,7 @@ public class App {
                     break;
             }
         }
-    scanner.close();
+        scanner.close();
     }
 }
-// Cuando presiones enter al modificar, si esta vacio dejar el anterior valor 
+// Cuando presiones enter al modificar, si esta vacio dejar el anterior valor
