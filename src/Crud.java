@@ -50,5 +50,24 @@ public class Crud {
         this.setMade(true);
     }
     
+    public void read(){
+        System.out.println("Object name: " + this.name + ", Object description: " + this.description + " Its made?: " + made);
+    }
 
+    /*@Override
+    public String toString() {
+        return "Crud [name=" + name + ", description=" + description + ", made=" + made + "]";
+    }*/
+    
+    public void update(){
+        System.out.println("Write a new description: ");
+        description = scanner.nextLine();
+        this.setDescription(description);
+    }
+
+    public void delete(){
+        this.setName(null);
+        this.setDescription(null);
+        this.setMade(false);
+    }
 }
